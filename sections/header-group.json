@@ -98,7 +98,9 @@
         "announcement_text_color": "#000000",
         "logo": "shopify://shop_images/Logo.png",
         "logo_height": 50,
-        "menu": "main-menu"
+        "menu": "main-menu",
+        "cart_icon": "shopify://shop_images/cart_icon_a7a2f919-e2dd-4741-a4a8-6d9a02a10352.svg",
+        "search_icon": "shopify://shop_images/search-icon.svg"
       }
     }
   },
