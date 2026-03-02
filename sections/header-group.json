@@ -86,18 +86,24 @@
         "collection_color_scheme": "default"
       }
     },
-    "custom_header_7nFtPF": {
+    "custom_header_EH3PgK": {
       "type": "custom-header",
-      "name": "Custom Header",
+      "name": "Sketch Custom Header",
       "settings": {
-        "logo_width": 100,
-        "menu": "main-menu",
-        "bg_color": "#ffffff"
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "show_announcement": true,
+        "announcement_text": "FREE SHIPPING FROM 30€",
+        "announcement_bg_color": "#e6d5d0",
+        "announcement_text_color": "#000000",
+        "logo": "shopify://shop_images/Logo.png",
+        "logo_height": 50,
+        "menu": "main-menu"
       }
     }
   },
   "order": [
     "header_section",
-    "custom_header_7nFtPF"
+    "custom_header_EH3PgK"
   ]
 }
