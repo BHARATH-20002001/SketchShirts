@@ -19,7 +19,11 @@
       <div class="sk-grid-top">
         <div class="sk-align-left">
           <a href="{{ routes.cart_url }}" class="sk-icon-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            {%- if section.settings.cart_icon != blank -%}
+              {{ section.settings.cart_icon | image_url: width: 48 | image_tag: loading: 'lazy', class: 'sk-custom-icon', alt: 'Cart' }}
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a 2 2 0 0 0 2 2h14a 2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            {%- endif -%}
           </a>
         </div>
 
@@ -36,9 +40,27 @@
         </div>
 
         <div class="sk-align-right">
-          <a href="{{ routes.search_url }}" class="sk-icon-link">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          </a>
+          <div class="sk-search-wrapper">
+            <button type="button" class="sk-icon-link sk-search-toggle" aria-label="Search">
+              {%- if section.settings.search_icon != blank -%}
+                {{ section.settings.search_icon | image_url: width: 48 | image_tag: loading: 'lazy', class: 'sk-custom-icon', alt: 'Search' }}
+              {%- else -%}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              {%- endif -%}
+            </button>
+            <div class="sk-search-dropdown">
+              <form action="{{ routes.search_url }}" method="get" role="search" class="sk-search-form">
+                <input type="search" name="q" class="sk-search-input" placeholder="Search products, brands..." autocomplete="off">
+              </form>
+              <div class="sk-search-results"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sk-mobile-toggle">
+          <button type="button" class="sk-hamburger-btn" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </button>
         </div>
       </div>
 
@@ -67,6 +89,90 @@
   </header>
 </section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var headers = document.querySelectorAll('.sketch-header-unique');
+    headers.forEach(function(header) {
+      var toggle = header.querySelector('.sk-hamburger-btn');
+      var nav = header.querySelector('.sk-nav-wrapper');
+      
+      if (toggle && nav) {
+        toggle.addEventListener('click', function() {
+          nav.classList.toggle('active');
+          var expanded = nav.classList.contains('active');
+          toggle.setAttribute('aria-expanded', expanded);
+        });
+      }
+    });
+
+    // Search Functionality
+    var searchWrappers = document.querySelectorAll('.sk-search-wrapper');
+    searchWrappers.forEach(function(wrapper) {
+      var toggle = wrapper.querySelector('.sk-search-toggle');
+      var dropdown = wrapper.querySelector('.sk-search-dropdown');
+      var input = wrapper.querySelector('.sk-search-input');
+      var resultsContainer = wrapper.querySelector('.sk-search-results');
+      var typingTimer;
+
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+        if (dropdown.classList.contains('active')) input.focus();
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!wrapper.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+
+      input.addEventListener('input', function() {
+        clearTimeout(typingTimer);
+        var term = this.value.trim();
+        
+        if (term.length < 2) {
+          resultsContainer.innerHTML = '';
+          return;
+        }
+
+        typingTimer = setTimeout(function() {
+          fetch(window.Shopify.routes.root + 'search/suggest.json?q=' + term + '&resources[type]=product,collection&resources[options][fields]=author,tag,title,product_type,vendor')
+            .then(response => response.json())
+            .then(data => {
+              var html = '';
+              var products = data.resources.results.products;
+              var collections = data.resources.results.collections;
+
+              if (collections && collections.length > 0) {
+                html += '<div class="sk-results-group"><h3 class="sk-results-title">Categories & Brands</h3><ul class="sk-results-list">';
+                collections.forEach(c => {
+                  html += '<li><a href="' + c.url + '">' + c.title + '</a></li>';
+                });
+                html += '</ul></div>';
+              }
+
+              if (products && products.length > 0) {
+                html += '<div class="sk-results-group"><h3 class="sk-results-title">Products</h3><ul class="sk-results-list sk-product-list">';
+                products.forEach(p => {
+                  var img = p.image ? '<img src="' + p.image + '" alt="' + p.title + '">' : '';
+                  html += '<li><a href="' + p.url + '" class="sk-product-result">' + img + '<div><div class="sk-prod-title">' + p.title + '</div><div class="sk-prod-vendor">' + p.vendor + '</div><div class="sk-prod-price">' + p.price + '</div></div></a></li>';
+                });
+                html += '</ul></div>';
+              }
+
+              if (!products.length && !collections.length) {
+                html += '<div class="sk-no-results">No results found.</div>';
+              }
+
+              resultsContainer.innerHTML = html;
+            });
+        }, 300);
+      });
+    });
+  });
+</script>
+
 <style>
 /* Reset-scope to ensure theme defaults don't interfere */
 .sketch-header-unique {
@@ -75,12 +181,18 @@
   padding: 0;
   font-family: inherit;
   line-height: 1.5;
+  position: relative;
+  z-index: 1000;
+}
+
+.sketch-header-unique * {
+  box-sizing: border-box;
 }
 
 .sketch-header-unique .sk-container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 20px;
 }
 
 /* Announcement Bar */
@@ -103,11 +215,24 @@
 
 .sketch-header-unique .sk-align-left { justify-self: start; }
 .sketch-header-unique .sk-align-center { justify-self: center; }
-.sketch-header-unique .sk-align-right { justify-self: end; }
+.sketch-header-unique .sk-align-right { justify-self: end; display: flex; align-items: center; gap: 15px; }
+
+.sketch-header-unique .sk-mobile-toggle { display: none; }
+.sketch-header-unique .sk-hamburger-btn { background: none; border: none; cursor: pointer; padding: 0; color: {{ section.settings.text_color }}; }
+.sketch-header-unique .sk-hamburger-btn svg { display: block; }
+.sketch-header-unique .sk-search-toggle { background: none; border: none; cursor: pointer; padding: 0; display: flex; }
 
 .sketch-header-unique .sk-icon-link {
   color: {{ section.settings.text_color }};
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.sketch-header-unique .sk-custom-icon {
+  width: 24px;
+  height: auto;
+  object-fit: contain;
 }
 
 .sketch-header-unique .sk-logo-text {
@@ -162,6 +287,7 @@
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   padding: 10px 0;
   z-index: 99;
+  border-radius: 4px;
 }
 
 .sketch-header-unique .sk-menu-item:hover .sk-dropdown {
@@ -180,12 +306,144 @@
   background: #f4f4f4;
 }
 
+/* Search Styles */
+.sketch-header-unique .sk-search-wrapper {
+  position: relative;
+}
+
+.sketch-header-unique .sk-search-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 15px;
+  z-index: 1001;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.sketch-header-unique .sk-search-dropdown.active {
+  display: block;
+}
+
+.sketch-header-unique .sk-search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.sketch-header-unique .sk-results-group {
+  margin-bottom: 15px;
+}
+
+.sketch-header-unique .sk-results-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+
+.sketch-header-unique .sk-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sketch-header-unique .sk-results-list li a {
+  display: block;
+  padding: 5px 0;
+  text-decoration: none;
+  color: #333;
+  font-size: 13px;
+}
+
+.sketch-header-unique .sk-product-result { display: flex; gap: 10px; align-items: center; }
+.sketch-header-unique .sk-product-result img { width: 40px; height: 40px; object-fit: cover; border-radius: 2px; }
+.sketch-header-unique .sk-prod-title { font-weight: 500; line-height: 1.2; }
+.sketch-header-unique .sk-prod-vendor { font-size: 11px; color: #888; }
+.sketch-header-unique .sk-prod-price { font-size: 12px; font-weight: 600; margin-top: 2px; }
+.sketch-header-unique .sk-no-results { font-size: 13px; color: #666; text-align: center; padding: 10px 0; }
+
 /* Responsive */
 @media (max-width: 768px) {
-  .sketch-header-unique .sk-menu {
-    gap: 15px;
-    font-size: 11px;
+  .sketch-header-unique .sk-grid-top {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .sketch-header-unique .sk-align-center {
+    order: 1;
+    margin-right: auto;
+  }
+
+  .sketch-header-unique .sk-align-left { order: 2; }
+  .sketch-header-unique .sk-align-right { order: 3; }
+  
+  .sketch-header-unique .sk-mobile-toggle {
+    display: block;
+    order: 4;
+  }
+
+  .sketch-header-unique .sk-nav-wrapper {
+    display: none;
+    width: 100%;
+    order: 5;
+    padding-top: 10px;
+  }
+
+  .sketch-header-unique .sk-nav-wrapper.active {
+    display: block;
+  }
+
+  .sketch-header-unique .sk-menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sketch-header-unique .sk-menu-item {
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .sketch-header-unique .sk-link {
+    padding: 15px 0;
+    font-size: 14px;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .sketch-header-unique .sk-dropdown {
+    position: static;
+    box-shadow: none;
+    padding-left: 15px;
+    background: transparent;
+  }
+  
+  .sketch-header-unique .sk-menu-item:hover .sk-dropdown {
+    display: block;
+  }
+
+  .sketch-header-unique .sk-search-dropdown {
+    position: fixed;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 }
 </style>
@@ -250,6 +508,16 @@
       "id": "menu",
       "label": "Navigation Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "cart_icon",
+      "label": "Cart Icon (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "search_icon",
+      "label": "Search Icon (Optional)"
     }
   ],
   "presets": [
