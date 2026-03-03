@@ -101,6 +101,9 @@
           nav.classList.toggle('active');
           var expanded = nav.classList.contains('active');
           toggle.setAttribute('aria-expanded', expanded);
+          if (expanded) {
+            header.classList.remove('sk-scroll-hide');
+          }
         });
       }
     });
@@ -453,30 +456,28 @@
 @media (max-width: 768px) {
   .sketch-header-unique .sk-grid-top {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
   }
 
   .sketch-header-unique .sk-align-center {
     order: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+    width: auto;
+    margin-bottom: 0;
   }
 
   .sketch-header-unique .sk-container {
   padding: 0 20px;
 }
-
-  .sketch-header-unique .sk-align-left { order: 2; }
-  .sketch-header-unique .sk-align-right { order: 3; }
   
   .sketch-header-unique .sk-mobile-toggle {
     display: block;
-    order: 4;
+    order: 2;
+  }
+
+  .sketch-header-unique .sk-align-left,
+  .sketch-header-unique .sk-align-right {
+    display: none;
   }
 
   .sketch-header-unique .sk-nav-wrapper {
