@@ -4,7 +4,7 @@
   conflicting with your existing theme styles.
 {% endcomment %}
 
-<section class="sketch-header-unique" data-section-id="{{ section.id }}" style="background-color: {{ section.settings.bg_color }};">
+<section class="sketch-header-unique" data-section-id="{{ section.id }}">
   
   {%- if section.settings.show_announcement -%}
     <div class="sk-announcement-bar" style="background-color: {{ section.settings.announcement_bg_color }}; color: {{ section.settings.announcement_text_color }};">
@@ -105,6 +105,20 @@
       }
     });
 
+    // Mobile Submenu Toggle
+    var menuItems = document.querySelectorAll('.sk-menu-item');
+    menuItems.forEach(function(item) {
+      var caret = item.querySelector('.sk-caret');
+      
+      if (caret) {
+        caret.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          item.classList.toggle('submenu-active');
+        });
+      }
+    });
+
     // Search Functionality
     var searchWrappers = document.querySelectorAll('.sk-search-wrapper');
     searchWrappers.forEach(function(wrapper) {
@@ -170,6 +184,28 @@
         }, 300);
       });
     });
+
+    // Sticky Header & Scroll Behavior
+    var lastScrollTop = 0;
+    var headerSection = document.querySelector('.sketch-header-unique');
+    
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > 50) {
+        headerSection.classList.add('sk-sticky');
+        if (scrollTop > lastScrollTop) {
+          headerSection.classList.add('sk-scroll-hide');
+          headerSection.classList.remove('sk-scroll-show');
+        } else {
+          headerSection.classList.remove('sk-scroll-hide');
+          headerSection.classList.add('sk-scroll-show');
+        }
+      } else {
+        headerSection.classList.remove('sk-sticky', 'sk-scroll-hide', 'sk-scroll-show');
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
   });
 </script>
 
@@ -182,8 +218,12 @@
   padding: 0;
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
   z-index: 1000;
+  transition: background-color 0.3s ease;
 }
 
 .sketch-header-unique * {
@@ -193,7 +233,39 @@
 .sketch-header-unique .sk-container {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 0px;
+}
+
+/* Sticky States */
+.sketch-header-unique.sk-sticky {
+  position: fixed;
+  background-color: #000;
+}
+
+/* Transitions for smooth toggle */
+.sketch-header-unique .sk-announcement-bar,
+.sketch-header-unique .sk-align-left,
+.sketch-header-unique .sk-align-right,
+.sketch-header-unique .sk-nav-wrapper,
+.sketch-header-unique .sk-grid-top {
+  transition: all 0.3s ease;
+}
+
+/* Hide content on scroll down */
+.sketch-header-unique.sk-scroll-hide .sk-announcement-bar,
+.sketch-header-unique.sk-scroll-hide .sk-align-left,
+.sketch-header-unique.sk-scroll-hide .sk-align-right,
+.sketch-header-unique.sk-scroll-hide .sk-nav-wrapper {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.sketch-header-unique.sk-scroll-hide .sk-grid-top {
+  padding: 10px 0;
 }
 
 /* Announcement Bar */
@@ -282,8 +354,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background: #fff;
-  color: #000;
+  background: #000;
+  color: #fff;
   min-width: 180px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   padding: 10px 0;
@@ -295,16 +367,20 @@
   display: block;
 }
 
+.sketch-header-unique .sk-menu-item.submenu-active .sk-dropdown {
+  display: block;
+}
+
 .sketch-header-unique .sk-dropdown a {
   display: block;
   padding: 8px 20px;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   font-size: 12px;
 }
 
 .sketch-header-unique .sk-dropdown a:hover {
-  background: #f4f4f4;
+  background: #333;
 }
 
 /* Search Styles */
@@ -391,6 +467,10 @@
     margin-bottom: 10px;
   }
 
+  .sketch-header-unique .sk-container {
+  padding: 0 20px;
+}
+
   .sketch-header-unique .sk-align-left { order: 2; }
   .sketch-header-unique .sk-align-right { order: 3; }
   
@@ -408,6 +488,12 @@
 
   .sketch-header-unique .sk-nav-wrapper.active {
     display: block;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 100%;
+    padding: 0 20px 20px;
   }
 
   .sketch-header-unique .sk-menu {
@@ -417,7 +503,7 @@
 
   .sketch-header-unique .sk-menu-item {
     width: 100%;
-    border-top: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
 
   .sketch-header-unique .sk-link {
@@ -425,6 +511,13 @@
     font-size: 14px;
     justify-content: space-between;
     width: 100%;
+    color: #fff;
+  }
+
+  .sketch-header-unique .sk-caret {
+    padding: 10px;
+    cursor: pointer;
+    color: #fff;
   }
 
   .sketch-header-unique .sk-dropdown {
@@ -435,6 +528,10 @@
   }
   
   .sketch-header-unique .sk-menu-item:hover .sk-dropdown {
+    display: none;
+  }
+
+  .sketch-header-unique .sk-menu-item.submenu-active .sk-dropdown {
     display: block;
   }
 

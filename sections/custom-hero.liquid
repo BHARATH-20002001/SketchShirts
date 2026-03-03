@@ -1,0 +1,103 @@
+<section class="sk-hero-wrapper" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('{{ section.settings.bg_image | image_url: width: 2000 }}');">
+  <div class="sk-hero-container">
+    <div class="sk-hero-content">
+      <p class="sk-hero-subtitle">{{ section.settings.subtitle }}</p>
+      <h1 class="sk-hero-title">{{ section.settings.title }}</h1>
+      <p class="sk-hero-desc">{{ section.settings.description }}</p>
+      
+      {%- if section.settings.btn_text != blank -%}
+        <a href="{{ section.settings.btn_link }}" class="sk-hero-btn">{{ section.settings.btn_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+.sk-hero-wrapper {
+  width: 100%;
+  height: 100vh; /* Fills the entire screen height */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.sk-hero-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 0px;
+  width: 100%;
+  /* Push content down so it doesn't overlap with the absolute header */
+  padding-top: 120px; 
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sk-hero-content {
+  max-width: 100%;
+}
+
+.sk-hero-subtitle {
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  white-space: pre-wrap;
+}
+
+.sk-hero-title {
+  font-size: 75px;
+  line-height: 1.1;
+  font-family: 'Adamina', serif;
+  font-weight: 400;
+  margin: 0 0 20px 0;
+}
+
+.sk-hero-desc {
+  font-size: 20px;
+  margin-bottom: 35px;
+  opacity: 0.84;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.sk-hero-btn {
+  display: inline-block;
+  padding: 12px 40px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.sk-hero-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@media(max-width: 768px) {
+  .sk-hero-wrapper { background-position: right center; }
+  .sk-hero-container { padding: 0 20px; padding-top: 100px; }
+  .sk-hero-title { font-size: 45px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Sketch Hero Image",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Background Image" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "SKETCH SHIRTS" },
+    { "type": "text", "id": "title", "label": "Main Title", "default": "The Cool Eight" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "This super sports car is known by everyone and lives up to its name" },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "SHOP NOW" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" }
+  ],
+  "presets": [{"name": "Sketch Hero Image"}]
+}
+{% endschema %}
