@@ -203,9 +203,22 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "custom_hero_EQUxE8": {
+      "type": "custom-hero",
+      "name": "Sketch Hero Image",
+      "settings": {
+        "bg_image": "shopify://shop_images/home-hero-bg_cb2a31e3-9eba-4e80-880f-5e54387e701b.png",
+        "subtitle": "SKETCH SHIRTS",
+        "title": "The Cool Eight",
+        "description": "This super sports car is known by everyone and lives up to its name",
+        "btn_text": "SHOP NOW",
+        "btn_link": ""
+      }
     }
   },
   "order": [
-    "product_list_fa6P9H"
+    "product_list_fa6P9H",
+    "custom_hero_EQUxE8"
   ]
 }
