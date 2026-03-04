@@ -215,10 +215,75 @@
         "btn_text": "SHOP NOW",
         "btn_link": ""
       }
+    },
+    "custom_category_list_33kqpm": {
+      "type": "custom-category-list",
+      "blocks": {
+        "category_KHQiQt": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "category_VwRKTX": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "category_RFdeTN": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "category_ePhLnQ": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        },
+        "category_jTrxEh": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_KHQiQt",
+        "category_VwRKTX",
+        "category_RFdeTN",
+        "category_ePhLnQ",
+        "category_jTrxEh"
+      ],
+      "name": "Custom Category List",
+      "settings": {
+        "title": "CATEGORY"
+      }
+    },
+    "sketch_product_slider_VUYpJe": {
+      "type": "sketch-product-slider",
+      "name": "Sketch Product Slider",
+      "settings": {
+        "title": "POWER BOMBER",
+        "subtitle": "ALLE ANZEIGEN",
+        "subtitle_link": "",
+        "collection": "",
+        "product_limit": 8,
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
     "product_list_fa6P9H",
-    "custom_hero_EQUxE8"
+    "custom_hero_EQUxE8",
+    "sketch_product_slider_VUYpJe",
+    "custom_category_list_33kqpm"
   ]
 }
