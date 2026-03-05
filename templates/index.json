@@ -285,6 +285,9 @@
     },
     "sketch_product_slider_b3iEC6": {
       "type": "sketch-product-slider",
+      "custom_css": [
+        "h2{width: 50%; align-self: center;}"
+      ],
       "name": "Sketch Slider",
       "settings": {
         "title": "RALLYE COOPER EDITION -GREEN HORNET",
