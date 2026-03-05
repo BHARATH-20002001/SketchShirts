@@ -218,7 +218,7 @@
     },
     "sketch_product_slider_VUYpJe": {
       "type": "sketch-product-slider",
-      "name": "Sketch Product Slider",
+      "name": "POWER BOMBER",
       "settings": {
         "title": "POWER BOMBER",
         "subtitle": "ALLE ANZEIGEN",
@@ -233,7 +233,7 @@
         "category_KHQiQt": {
           "type": "category",
           "settings": {
-            "collection": "power-bomber",
+            "collection": "",
             "image": "shopify://shop_images/audi.png",
             "title": "Audi"
           }
@@ -282,12 +282,24 @@
       "settings": {
         "title": "CATEGORY"
       }
+    },
+    "sketch_product_slider_b3iEC6": {
+      "type": "sketch-product-slider",
+      "name": "Sketch Slider",
+      "settings": {
+        "title": "Featured Products",
+        "subtitle": "View All",
+        "subtitle_link": "",
+        "collection": "",
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
     "product_list_fa6P9H",
     "custom_hero_EQUxE8",
     "sketch_product_slider_VUYpJe",
-    "custom_category_list_33kqpm"
+    "custom_category_list_33kqpm",
+    "sketch_product_slider_b3iEC6"
   ]
 }
