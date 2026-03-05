@@ -286,7 +286,7 @@
     "sketch_product_slider_b3iEC6": {
       "type": "sketch-product-slider",
       "custom_css": [
-        "h2 {width: 50%; justify-self: center;}"
+        "h2 {width: 40% !important; justify-self: center;}"
       ],
       "name": "Sketch Slider",
       "settings": {
