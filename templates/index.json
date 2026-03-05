@@ -308,6 +308,18 @@
         "collection": "rallye-cooper-edition",
         "price_color": "#d93838"
       }
+    },
+    "sketch_product_slider_D4dbhp": {
+      "type": "sketch-product-slider",
+      "custom_css": [],
+      "name": "CALI",
+      "settings": {
+        "title": "CALI",
+        "subtitle": "alle anzeigen",
+        "subtitle_link": "#",
+        "collection": "rallye-cooper-edition",
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
@@ -316,6 +328,7 @@
     "sketch_product_slider_VUYpJe",
     "custom_category_list_33kqpm",
     "sketch_product_slider_b3iEC6",
-    "sketch_product_slider_Ddk48y"
+    "sketch_product_slider_Ddk48y",
+    "sketch_product_slider_D4dbhp"
   ]
 }
