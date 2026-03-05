@@ -224,7 +224,6 @@
         "subtitle": "ALLE ANZEIGEN",
         "subtitle_link": "",
         "collection": "power-bomber",
-        "product_limit": 8,
         "price_color": "#d93838"
       }
     },
@@ -235,35 +234,40 @@
           "type": "category",
           "settings": {
             "collection": "power-bomber",
-            "title": ""
+            "image": "shopify://shop_images/audi.png",
+            "title": "Audi"
           }
         },
         "category_VwRKTX": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/bmw.png",
+            "title": "BMW"
           }
         },
         "category_RFdeTN": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/VOLKSWAGEN.png",
+            "title": "VOLKSWAGEN"
           }
         },
         "category_ePhLnQ": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/GERMAN_LEGEND.png",
+            "title": "GERMAN LEGEND"
           }
         },
         "category_jTrxEh": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/SUMMER_VS_BULLI.png",
+            "title": "SUMMER VS BULLI"
           }
         }
       },
