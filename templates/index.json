@@ -398,6 +398,37 @@
         "button_label": "TO THE FUN SHIRTS!",
         "button_link": ""
       }
+    },
+    "sketch_promo_columns_UxBdr9": {
+      "type": "sketch-promo-columns",
+      "blocks": {
+        "promo_column_kNzKXx": {
+          "type": "promo_column",
+          "settings": {
+            "image": "shopify://shop_images/Worthersee1.png",
+            "heading": "#NEWDESIGN | WÖRTHERSEE 2021",
+            "text": "Since We Think The Wörthersee Meeting Is As Great As You Do, We Thought We Would Make A Special Design For It! And Here It Is :) Our Wörthersee 2021 Design!",
+            "link_label": "TO THE NEW DESIGN!",
+            "link_url": ""
+          }
+        },
+        "promo_column_3i7iXd": {
+          "type": "promo_column",
+          "settings": {
+            "image": "shopify://shop_images/Italian_predator.png",
+            "heading": "#NEWDESIGN | ITALIAN PREDATOR IN COLOR",
+            "text": "This Super Sports Car Is Known By Everyone And Lives Up To Its Name :) It Is Extremely Loud And Runs Times Like No Other Car. Here We Have Brought 2 Designs Online Directly.",
+            "link_label": "TO THE NEW DESIGN!",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "promo_column_kNzKXx",
+        "promo_column_3i7iXd"
+      ],
+      "name": "Sketch Promo Columns",
+      "settings": {}
     }
   },
   "order": [
@@ -410,6 +441,7 @@
     "sketch_product_slider_D4dbhp",
     "sketch_testimonials_QahcC8",
     "sketch_product_slider_6zazzk",
-    "sketch_image_banner_QdnX63"
+    "sketch_image_banner_QdnX63",
+    "sketch_promo_columns_UxBdr9"
   ]
 }
