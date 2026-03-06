@@ -218,13 +218,12 @@
     },
     "sketch_product_slider_VUYpJe": {
       "type": "sketch-product-slider",
-      "name": "Sketch Product Slider",
+      "name": "POWER BOMBER",
       "settings": {
         "title": "POWER BOMBER",
         "subtitle": "ALLE ANZEIGEN",
         "subtitle_link": "",
         "collection": "power-bomber",
-        "product_limit": 8,
         "price_color": "#d93838"
       }
     },
@@ -234,36 +233,41 @@
         "category_KHQiQt": {
           "type": "category",
           "settings": {
-            "collection": "power-bomber",
-            "title": ""
+            "collection": "",
+            "image": "shopify://shop_images/audi.png",
+            "title": "Audi"
           }
         },
         "category_VwRKTX": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/bmw.png",
+            "title": "BMW"
           }
         },
         "category_RFdeTN": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/VOLKSWAGEN.png",
+            "title": "VOLKSWAGEN"
           }
         },
         "category_ePhLnQ": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/GERMAN_LEGEND.png",
+            "title": "GERMAN LEGEND"
           }
         },
         "category_jTrxEh": {
           "type": "category",
           "settings": {
             "collection": "",
-            "title": ""
+            "image": "shopify://shop_images/SUMMER_VS_BULLI.png",
+            "title": "SUMMER VS BULLI"
           }
         }
       },
@@ -278,12 +282,53 @@
       "settings": {
         "title": "CATEGORY"
       }
+    },
+    "sketch_product_slider_b3iEC6": {
+      "type": "sketch-product-slider",
+      "custom_css": [
+        "h2 {width: 35% !important; justify-self: center;}"
+      ],
+      "name": "RALLYE COOPER EDITION",
+      "settings": {
+        "title": "RALLYE COOPER EDITION -GREEN HORNET",
+        "subtitle": "alle anzeigen",
+        "subtitle_link": "#",
+        "collection": "rallye-cooper-edition",
+        "price_color": "#d93838"
+      }
+    },
+    "sketch_product_slider_Ddk48y": {
+      "type": "sketch-product-slider",
+      "custom_css": [],
+      "name": "RALLYE COOPER EDITION",
+      "settings": {
+        "title": "VIPER STRIPES",
+        "subtitle": "alle anzeigen",
+        "subtitle_link": "#",
+        "collection": "rallye-cooper-edition",
+        "price_color": "#d93838"
+      }
+    },
+    "sketch_product_slider_D4dbhp": {
+      "type": "sketch-product-slider",
+      "custom_css": [],
+      "name": "CALI",
+      "settings": {
+        "title": "CALI",
+        "subtitle": "alle anzeigen",
+        "subtitle_link": "#",
+        "collection": "rallye-cooper-edition",
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
     "product_list_fa6P9H",
     "custom_hero_EQUxE8",
     "sketch_product_slider_VUYpJe",
-    "custom_category_list_33kqpm"
+    "custom_category_list_33kqpm",
+    "sketch_product_slider_b3iEC6",
+    "sketch_product_slider_Ddk48y",
+    "sketch_product_slider_D4dbhp"
   ]
 }
