@@ -320,6 +320,60 @@
         "collection": "rallye-cooper-edition",
         "price_color": "#d93838"
       }
+    },
+    "sketch_testimonials_QahcC8": {
+      "type": "sketch-testimonials",
+      "blocks": {
+        "review_KM8edx": {
+          "type": "review",
+          "settings": {
+            "review_text": "IT IS A LONG ESTABLISHED THAT A READER.",
+            "rating": 5,
+            "author_name": "H. RACKHAM"
+          }
+        },
+        "review_drqYtr": {
+          "type": "review",
+          "settings": {
+            "review_text": "ANYTHING EMBARRASSING HIDDEN",
+            "rating": 5,
+            "author_name": "DOLORE EU"
+          }
+        },
+        "review_Dx8GQf": {
+          "type": "review",
+          "settings": {
+            "review_text": "FINIBUS BONORUM ET MALORUM",
+            "rating": 5,
+            "author_name": "UT ENIM"
+          }
+        },
+        "review_Ed8QA3": {
+          "type": "review",
+          "settings": {
+            "review_text": "LOREM IPSUM DOLOR SIT AMET",
+            "rating": 5,
+            "author_name": "CONSECTETUR"
+          }
+        },
+        "review_4RKHex": {
+          "type": "review",
+          "settings": {
+            "review_text": "ADIPISCING ELIT, SED DO EIUSMOD",
+            "rating": 5,
+            "author_name": "TEMPOR"
+          }
+        }
+      },
+      "block_order": [
+        "review_KM8edx",
+        "review_drqYtr",
+        "review_Dx8GQf",
+        "review_Ed8QA3",
+        "review_4RKHex"
+      ],
+      "name": "Sketch Testimonials",
+      "settings": {}
     }
   },
   "order": [
@@ -329,6 +383,7 @@
     "custom_category_list_33kqpm",
     "sketch_product_slider_b3iEC6",
     "sketch_product_slider_Ddk48y",
-    "sketch_product_slider_D4dbhp"
+    "sketch_product_slider_D4dbhp",
+    "sketch_testimonials_QahcC8"
   ]
 }
