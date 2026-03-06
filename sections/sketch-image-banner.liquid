@@ -1,0 +1,172 @@
+{% comment %}
+  SKETCH SHIRTS - IMAGE BANNER
+  Full-width background image with text and button overlay.
+{% endcomment %}
+
+{%- liquid
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+  assign overlay_color = 'rgba(0,0,0,' | append: overlay_opacity | append: ')'
+  
+  if section.settings.image != blank
+    assign bg_image = section.settings.image | image_url: width: 2000
+  else
+    assign bg_image = ''
+  endif
+-%}
+
+<section class="sk-img-banner-wrapper" style="{% if bg_image != blank %}background-image: linear-gradient({{ overlay_color }}, {{ overlay_color }}), url('{{ bg_image }}');{% else %}background-color: #333;{% endif %}">
+  <div class="sk-img-banner-container">
+    <div class="sk-img-banner-content">
+      
+      {%- if section.settings.heading != blank -%}
+        <h2 class="sk-img-banner-heading">
+          {{ section.settings.heading | newline_to_br }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="sk-img-banner-text">
+          {{ section.settings.text | newline_to_br }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="sk-img-banner-btn">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* Scoped Styles */
+.sk-img-banner-wrapper {
+  width: 100%;
+  padding: 100px 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Minimum height to ensure it looks good even with little text */
+  min-height: 500px; 
+}
+
+.sk-img-banner-container {
+  max-width: 800px; /* Keeps the text contained and readable */
+  margin: 0 auto;
+}
+
+.sk-img-banner-heading {
+  font-size: 52px;
+  font-family: serif; /* Matches the elegant font in your image */
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 25px 0;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.sk-img-banner-text {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 auto 35px auto;
+  max-width: 650px;
+  opacity: 0.9;
+}
+
+.sk-img-banner-text p {
+  margin: 0 0 10px 0;
+}
+
+.sk-img-banner-btn {
+  display: inline-block;
+  padding: 12px 35px;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.sk-img-banner-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sk-img-banner-wrapper {
+    padding: 70px 20px;
+    min-height: 400px;
+  }
+  .sk-img-banner-heading {
+    font-size: 36px;
+  }
+  .sk-img-banner-text {
+    font-size: 14px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Sketch Image Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image Dark Overlay Opacity",
+      "default": 60
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "NEWDESIGNS |\nFUN SHIRTS",
+      "info": "Use 'Enter' to create a new line."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description Text",
+      "default": "Since there is also a lot of demand for children's T-shirts, we thought about creating a few fun shirts. These are also available as men's and women's T-shirts and as a top!"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "TO THE FUN SHIRTS!"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sketch Image Banner"
+    }
+  ]
+}
+{% endschema %}
