@@ -1,0 +1,257 @@
+{% comment %}
+  SKETCH SHIRTS - TESTIMONIALS
+  Static section for manual review entry with unique border styling.
+{% endcomment %}
+
+<slideshow-component class="sk-testi-slider" infinite autoplay="4">
+  <section class="sk-testi-wrapper" id="sk-testimonials-{{ section.id }}">
+    <div class="sk-testi-container">
+      <div class="sk-testi-box">
+        <div class="sk-testi-scroller" data-ref="scroller">
+          
+          {%- for block in section.blocks -%}
+            <div class="sk-testi-item" {{ block.shopify_attributes }} data-ref="slides">
+              
+              <div class="sk-testi-content">
+                {%- comment -%} Left Quote {%- endcomment -%}
+                <svg class="sk-quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+                
+                <p class="sk-testi-text">{{ block.settings.review_text }}</p>
+                
+                {%- comment -%} Right Quote {%- endcomment -%}
+                <svg class="sk-quote-icon right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3c-3 0-7 1-7 8v8c0 1.25.756 2.017 2 2h4c1.25 0 2-.75 2-1.972V13c0-1.25-.75-2-2-2-1 0-1 0-1-1v-1c0-1 1-2 2-2s1-.008 1-1.031V4c0-1 0-1-1-1z"></path><path d="M9 3c-3 0-7 1-7 8v8c0 1.25.757 2.017 2 2h4c1.25 0 2-.75 2-1.972V13c0-1.25-.75-2-2-2h-.75c0-2.25-.25-4 2.75-4V4c0-1 0-1-1-1z"></path></svg>
+              </div>
+
+              {%- comment -%} Star Ratings {%- endcomment -%}
+              <div class="sk-testi-stars">
+                {%- for i in (1..5) -%}
+                  <svg class="sk-star {% if i <= block.settings.rating %}filled{% endif %}" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                {%- endfor -%}
+              </div>
+
+              {%- comment -%} Author {%- endcomment -%}
+              <p class="sk-testi-author">{{ block.settings.author_name }}</p>
+              
+            </div>
+          {%- endfor -%}
+
+        </div>
+      </div>
+    </div>
+  </section>
+</slideshow-component>
+
+<script>
+  (function() {
+    const slider = document.querySelector('#sk-testimonials-{{ section.id }}').closest('slideshow-component');
+    if (slider) {
+      customElements.whenDefined('slideshow-component').then(() => {
+        slider.removeEventListener('mouseenter', slider.suspend);
+        slider.removeEventListener('mouseleave', slider.resume);
+      });
+    }
+  })();
+</script>
+
+<style>
+/* Scoped Styles */
+.sk-testi-slider {
+  display: block;
+}
+.sk-testi-wrapper {
+  padding: 40px 0;
+  background-color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.sk-testi-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* The Border Box with Unique Radius */
+.sk-testi-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 60px 10px 60px 10px; /* Top-Left and Bottom-Right are rounded */
+  padding: 70px 20px;
+  background: #ededed5c;
+  position: relative;
+}
+
+/* Scroller Layout */
+.sk-testi-scroller {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.sk-testi-scroller::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Individual Testimonial Item */
+.sk-testi-item {
+  text-align: center;
+  padding: 0 30px;
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 601px) {
+  .sk-testi-item {
+    flex: 0 0 calc(100% / 2);
+  }
+}
+
+@media (min-width: 901px) {
+  .sk-testi-item {
+    flex: 0 0 calc(100% / 3);
+  }
+}
+
+.sk-testi-content {
+  display: inline-block;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.sk-testi-text {
+  display: inline;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  color: #333333;
+}
+
+/* Quotes Styling */
+.sk-quote-icon {
+  width: 16px;
+  height: 16px;
+  color: #a0a0a0;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 4px;
+}
+
+.sk-quote-icon.right {
+  vertical-align: bottom;
+}
+
+/* Stars */
+.sk-testi-stars {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+}
+
+.sk-star {
+  width: 14px;
+  height: 14px;
+  fill: #e0e0e0; /* Empty star color */
+}
+
+.sk-star.filled {
+  fill: #f5c518; /* Yellow star color */
+}
+
+/* Author Name */
+.sk-testi-author {
+  font-size: 11px;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .sk-testi-box { border-radius: 40px 10px 40px 10px; padding: 40px 10px; }
+  .sk-testi-item { padding: 0 10px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Sketch Testimonials",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "IT IS A LONG ESTABLISHED THAT A READER."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "H. RACKHAM"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sketch Testimonials",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "IT IS A LONG ESTABLISHED THAT A READER.",
+            "author_name": "H. RACKHAM"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "ANYTHING EMBARRASSING HIDDEN",
+            "author_name": "DOLORE EU"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "FINIBUS BONORUM ET MALORUM",
+            "author_name": "UT ENIM"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "LOREM IPSUM DOLOR SIT AMET",
+            "author_name": "CONSECTETUR"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "ADIPISCING ELIT, SED DO EIUSMOD",
+            "author_name": "TEMPOR"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
