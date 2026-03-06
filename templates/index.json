@@ -374,6 +374,18 @@
       ],
       "name": "Sketch Testimonials",
       "settings": {}
+    },
+    "sketch_product_slider_6zazzk": {
+      "type": "sketch-product-slider",
+      "custom_css": [],
+      "name": "BULLI TIME 2.0",
+      "settings": {
+        "title": "BULLI TIME 2.0",
+        "subtitle": "alle anzeigen",
+        "subtitle_link": "#",
+        "collection": "rallye-cooper-edition",
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
@@ -384,6 +396,7 @@
     "sketch_product_slider_b3iEC6",
     "sketch_product_slider_Ddk48y",
     "sketch_product_slider_D4dbhp",
-    "sketch_testimonials_QahcC8"
+    "sketch_testimonials_QahcC8",
+    "sketch_product_slider_6zazzk"
   ]
 }
