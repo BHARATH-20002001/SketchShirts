@@ -386,6 +386,18 @@
         "collection": "rallye-cooper-edition",
         "price_color": "#d93838"
       }
+    },
+    "sketch_image_banner_QdnX63": {
+      "type": "sketch-image-banner",
+      "name": "Sketch Image Banner",
+      "settings": {
+        "image": "shopify://shop_images/image-banner-bg.png",
+        "overlay_opacity": 50,
+        "heading": "NEW DESIGNS |\nFUN SHIRTS",
+        "text": "Since there is also a lot of demand for children's T-shirts, we thought about creating a few fun shirts. These are also available as men's and women's T-shirts and as a top!",
+        "button_label": "TO THE FUN SHIRTS!",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -397,6 +409,7 @@
     "sketch_product_slider_Ddk48y",
     "sketch_product_slider_D4dbhp",
     "sketch_testimonials_QahcC8",
-    "sketch_product_slider_6zazzk"
+    "sketch_product_slider_6zazzk",
+    "sketch_image_banner_QdnX63"
   ]
 }
