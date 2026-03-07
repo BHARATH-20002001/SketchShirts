@@ -1,0 +1,383 @@
+{% comment %}
+  SKETCH SHIRTS - FOOTER
+  Custom footer with centered logo, newsletter, menus, and payment icons.
+{% endcomment %}
+
+<footer class="sk-footer-wrapper" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="sk-footer-container">
+    
+    {%- comment -%} Top Logo {%- endcomment -%}
+    <div class="sk-footer-logo-area">
+      <a href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 400 }}" 
+               alt="{{ shop.name }}" 
+               class="sk-footer-logo"
+               style="max-height: {{ section.settings.logo_height }}px;">
+        {%- else -%}
+          <h2 class="sk-footer-logo-text">{{ shop.name }}</h2>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} Main Footer Grid {%- endcomment -%}
+    <div class="sk-footer-grid">
+      
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'payment_image' -%}
+          {%- continue -%}
+        {%- endif -%}
+        <div class="sk-footer-block" {{ block.shopify_attributes }}>
+          
+          {%- if block.settings.heading != blank -%}
+            <h4 class="sk-footer-heading">{{ block.settings.heading }}</h4>
+          {%- endif -%}
+
+          {%- case block.type -%}
+            
+            {%- comment -%} Newsletter Block {%- endcomment -%}
+            {%- when 'newsletter' -%}
+              <div class="sk-footer-newsletter">
+                {%- if block.settings.text != blank -%}
+                  <div class="sk-footer-text">{{ block.settings.text }}</div>
+                {%- endif -%}
+                
+                {%- form 'customer', id: 'SketchFooterNewsletter' -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div class="sk-newsletter-input-group">
+                    <input type="email" 
+                           name="contact[email]" 
+                           id="Email-{{ section.id }}" 
+                           class="sk-newsletter-input" 
+                           value="{{ form.email }}" 
+                           placeholder="Your Email" 
+                           required>
+                    <button type="submit" class="sk-newsletter-btn" name="commit">
+                      Subscribe
+                    </button>
+                  </div>
+                  {%- if form.posted_successfully? -%}
+                    <p class="sk-newsletter-success">Thanks for subscribing!</p>
+                  {%- elsif form.errors -%}
+                    <p class="sk-newsletter-error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</p>
+                  {%- endif -%}
+                {%- endform -%}
+              </div>
+
+            {%- comment -%} Menu Block {%- endcomment -%}
+            {%- when 'menu' -%}
+              <ul class="sk-footer-menu">
+                {%- for link in block.settings.menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+
+    </div>
+
+    {%- comment -%} Bottom Bar (Copyright & Payments) {%- endcomment -%}
+    <div class="sk-footer-bottom">
+      <div class="sk-footer-spacer"></div>
+      <div class="sk-footer-copyright">
+        &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }} . {{ powered_by_link }}
+      </div>
+      
+      <div class="sk-footer-payments">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'payment_image' -%}
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: height: 50 }}" alt="{{ block.settings.image.alt }}" class="sk-payment-icon-custom">
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+/* Scoped Styles */
+.sk-footer-wrapper {
+  padding: 60px 0 30px 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.sk-footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Logo Area */
+.sk-footer-logo-area {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sk-footer-logo {
+  width: auto;
+  display: inline-block;
+}
+
+.sk-footer-logo-text {
+  font-family: serif;
+  font-size: 40px;
+  color: inherit;
+  margin: 0;
+  text-decoration: none;
+}
+
+.sk-footer-logo-area a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Grid Layout */
+.sk-footer-grid {
+  display: grid;
+  /* First column (newsletter) is wider, others are equal */
+  grid-template-columns: 2fr 1fr 1fr 1fr; 
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.sk-footer-heading {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  letter-spacing: 1px;
+}
+
+/* Newsletter Styles */
+.sk-footer-text {
+  color: #a0a0a0;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.sk-newsletter-input-group {
+  display: flex;
+  border: 1px solid #333;
+}
+
+.sk-newsletter-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 12px 15px;
+  font-size: 12px;
+  outline: none;
+}
+
+.sk-newsletter-input::placeholder {
+  color: #888;
+}
+
+.sk-newsletter-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.sk-newsletter-btn:hover {
+  opacity: 0.8;
+}
+
+.sk-newsletter-success { color: #4caf50; margin-top: 10px; }
+.sk-newsletter-error { color: #f44336; margin-top: 10px; }
+
+/* Menu Styles */
+.sk-footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sk-footer-menu li {
+  margin-bottom: 12px;
+}
+
+.sk-footer-menu a {
+  color: #a0a0a0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sk-footer-menu a:hover {
+  color: #ffffff;
+}
+
+/* Bottom Bar */
+.sk-footer-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid #222; /* Subtle divider line */
+}
+
+.sk-footer-spacer {
+  /* Empty spacer for grid centering */
+}
+
+.sk-footer-copyright {
+  color: #888;
+  font-size: 12px;
+  text-align: center;
+}
+
+.sk-footer-copyright a {
+  color: #888;
+  text-decoration: none;
+}
+
+.sk-footer-copyright a:hover {
+  color: #fff;
+}
+
+.sk-footer-payments {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sk-payment-icon-custom {
+  height: 25px;
+  width: auto;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+  .sk-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .sk-footer-container { padding: 0 20px; }
+  .sk-footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .sk-footer-bottom { 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+  }
+  .sk-footer-spacer { display: none; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Sketch Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Height",
+      "default": 60
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "STAY UP TO DATE"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Promotions, new products and special offers.<br>Straight to your inbox.</p>"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "FOOTER MENU"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu"
+        }
+      ]
+    },
+    {
+      "type": "payment_image",
+      "name": "Payment Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sketch Footer",
+      "blocks": [
+        {
+          "type": "newsletter"
+        },
+        {
+          "type": "menu"
+        },
+        {
+          "type": "menu"
+        },
+        {
+          "type": "menu"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
