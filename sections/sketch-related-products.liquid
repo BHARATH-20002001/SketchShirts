@@ -1,0 +1,327 @@
+{% comment %}
+  SKETCH PRODUCT SLIDER – FINAL RESPONSIVE INFINITE VERSION (RELATED PRODUCTS)
+{% endcomment %}
+
+<section class="sk-product-slider-wrapper" id="sk-slider-{{ section.id }}">
+  <div class="sk-ps-container">
+
+    <div class="sk-ps-header">
+      {% if section.settings.title != blank %}
+        <h2 class="sk-ps-heading">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <a href="{{ section.settings.subtitle_link | default: '#' }}" class="sk-ps-sublink">
+          {{ section.settings.subtitle }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="sk-ps-carousel">
+
+      <button class="sk-ps-nav sk-ps-prev" aria-label="Previous">‹</button>
+
+      <div class="sk-ps-track-wrapper">
+        <div class="sk-ps-track">
+          
+          {%- comment -%} Pull related products from the current product's first collection {%- endcomment -%}
+          {% assign current_product = product %}
+          {% assign related_collection = product.collections.first %}
+          
+          {% if related_collection != blank %}
+            {% assign count = 0 %}
+            {% for prod in related_collection.products %}
+              {% if prod.id != current_product.id and count < 10 %}
+                {% assign count = count | plus: 1 %}
+                <div class="sk-ps-item">
+                  <a href="{{ prod.url }}" class="sk-ps-card-link">
+                    <div class="sk-ps-image-wrapper">
+                      <img
+                        src="{{ prod.featured_image | image_url: width: 600 }}"
+                        alt="{{ prod.title | escape }}"
+                        loading="lazy"
+                        class="sk-ps-image">
+                    </div>
+                    <div class="sk-ps-info">
+                      <h3 class="sk-ps-product-title">{{ prod.title }}</h3>
+                      <span class="sk-ps-product-price" style="color: {{ section.settings.price_color }};">
+                        {{ prod.price | money }}
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          
+          {% if count == 0 %}
+            <p style="text-align:center;width:100%;">No related products found.</p>
+          {% endif %}
+
+        </div>
+      </div>
+
+      <button class="sk-ps-nav sk-ps-next" aria-label="Next">›</button>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.sk-product-slider-wrapper {
+  padding: 60px 0;
+  background: var(--color-background, #fff);
+  font-family: var(--font-body--family, sans-serif);
+}
+
+.sk-ps-container {
+  max-width: 1240px;
+  margin: auto;
+  position: relative;
+  padding: 0 20px;
+}
+
+.sk-ps-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sk-ps-heading {
+  font-size: 28px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-foreground, #1a1a1a);
+}
+
+.sk-ps-sublink {
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #666;
+}
+
+.sk-ps-carousel {
+  position: relative;
+}
+
+.sk-ps-track-wrapper {
+  overflow: hidden;
+}
+
+.sk-ps-track {
+  display: flex;
+  gap: 30px;
+  transition: transform 0.5s ease;
+}
+
+.sk-ps-item {
+  flex: 0 0 calc(25% - 22.5px);
+}
+
+.sk-ps-image-wrapper {
+  background: var(--color-background-secondary, #f0f0f0);
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sk-ps-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.sk-ps-card-link {
+  text-decoration: none;
+  color: var(--color-foreground, #1a1a1a);
+}
+
+.sk-ps-card-link:hover .sk-ps-image {
+  transform: scale(1.05);
+}
+
+.sk-ps-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sk-ps-product-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-foreground, #1a1a1a);
+}
+
+.sk-ps-product-price {
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Navigation Buttons */
+.sk-ps-nav {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: transparent;
+  color: var(--color-foreground, #000);
+  border: 2px solid var(--color-foreground, #000);
+  border-radius: 50%;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sk-ps-nav:hover {
+  background: var(--color-foreground, #000);
+  color: var(--color-background, #fff);
+}
+
+.sk-ps-prev { left: -22px; }
+.sk-ps-next { right: -22px; }
+
+/* Tablet - 3 Cards */
+@media(max-width:1024px){
+  .sk-ps-item { 
+    flex: 0 0 calc(33.33% - 20px); 
+  }
+  .sk-ps-nav{
+    top: 107%;
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--color-foreground, #000);
+    font-size: 20px;
+  }
+  .sk-ps-prev { left: 40%; }
+  .sk-ps-next { right: 40%; }
+}
+
+/* Mobile - 1 Card */
+@media(max-width:480px){
+  .sk-ps-item { 
+    flex: 0 0 100%; 
+  }
+  .sk-ps-prev { left: 35%; }
+  .sk-ps-next { right: 35%; }
+  .sk-ps-image-wrapper{aspect-ratio: 1/1;}
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const slider = document.querySelector("#sk-slider-{{ section.id }}");
+  if (!slider) return;
+
+  const track = slider.querySelector(".sk-ps-track");
+  const prev = slider.querySelector(".sk-ps-prev");
+  const next = slider.querySelector(".sk-ps-next");
+
+  let items = slider.querySelectorAll(".sk-ps-item");
+  const gap = 30;
+
+  if (items.length <= 1) {
+    if (prev) prev.style.display = 'none';
+    if (next) next.style.display = 'none';
+    return;
+  }
+
+  let position = 0;
+  let itemWidth = 0;
+
+  function calculateWidth() {
+    items = slider.querySelectorAll(".sk-ps-item");
+    if(items.length > 0) itemWidth = items[0].offsetWidth + gap;
+  }
+
+  /* Clone once for infinite loop */
+  if (!track.classList.contains("cloned") && items.length > 1) {
+    items.forEach(item => {
+      const clone = item.cloneNode(true);
+      track.appendChild(clone);
+    });
+    track.classList.add("cloned");
+  }
+
+  function moveNext() {
+    position -= itemWidth;
+    track.style.transform = `translateX(${position}px)`;
+
+    if (Math.abs(position) >= itemWidth * items.length) {
+      setTimeout(() => {
+        track.style.transition = "none";
+        position = 0;
+        track.style.transform = "translateX(0px)";
+        setTimeout(() => {
+          track.style.transition = "transform 0.5s ease";
+        }, 50);
+      }, 500);
+    }
+  }
+
+  function movePrev() {
+    if (position === 0) {
+      track.style.transition = "none";
+      position = -itemWidth * items.length;
+      track.style.transform = `translateX(${position}px)`;
+      setTimeout(() => {
+        track.style.transition = "transform 0.5s ease";
+        position += itemWidth;
+        track.style.transform = `translateX(${position}px)`;
+      }, 50);
+    } else {
+      position += itemWidth;
+      track.style.transform = `translateX(${position}px)`;
+    }
+  }
+
+  if (next) next.addEventListener("click", moveNext);
+  if (prev) prev.addEventListener("click", movePrev);
+
+  let auto = setInterval(moveNext, 3000);
+
+  slider.addEventListener("mouseenter", () => clearInterval(auto));
+  slider.addEventListener("mouseleave", () => {
+    auto = setInterval(moveNext, 3000);
+  });
+
+  function handleResize() {
+    calculateWidth();
+    position = 0;
+    track.style.transition = "none";
+    track.style.transform = "translateX(0px)";
+    setTimeout(() => {
+      track.style.transition = "transform 0.5s ease";
+    }, 50);
+  }
+
+  calculateWidth();
+  window.addEventListener("resize", handleResize);
+
+});
+</script>
+
+{% schema %}
+{
+  "name": "Related Product Slider",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Heading", "default": "Das könnte dir auch gefallen" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle" },
+    { "type": "url", "id": "subtitle_link", "label": "Subtitle Link" },
+    { "type": "color", "id": "price_color", "label": "Price Color", "default": "#d93838" }
+  ],
+  "presets": [
+    { "name": "Related Product Slider" }
+  ]
+}
+{% endschema %}

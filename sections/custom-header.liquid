@@ -4,7 +4,7 @@
   conflicting with your existing theme styles.
 {% endcomment %}
 
-<section class="sketch-header-unique" data-section-id="{{ section.id }}">
+<section class="sketch-header-unique {% if template.name != 'index' %}sk-solid-bg{% endif %}" data-section-id="{{ section.id }}">
   
   {%- if section.settings.show_announcement -%}
     <div class="sk-announcement-bar" style="background-color: {{ section.settings.announcement_bg_color }}; color: {{ section.settings.announcement_text_color }};">
@@ -193,6 +193,11 @@
     var headerSection = document.querySelector('.sketch-header-unique');
     
     window.addEventListener('scroll', function() {
+      // If this is an inner page (where header is forced solid), skip scroll animations
+      if (headerSection.classList.contains('sk-solid-bg')) {
+        return;
+      }
+
       var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       
       if (scrollTop > 50) {
@@ -214,7 +219,6 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-/* Reset-scope to ensure theme defaults don't interfere */
 .sketch-header-unique {
   width: 100%;
   margin: 0;
@@ -227,6 +231,12 @@
   background-color: transparent;
   z-index: 1000;
   transition: background-color 0.3s ease;
+}
+
+/* Force solid background immediately for certain templates (e.g., product pages) */
+.sketch-header-unique.sk-solid-bg {
+  position: fixed !important;
+  background-color: #000 !important;
 }
 
 .sketch-header-unique * {

@@ -44,6 +44,36 @@
       {% sections 'header-group' %}
     </div>
 
+    {%- if template.name != 'index' -%}
+      <div class="sk-global-header-spacer"></div>
+      <style>
+        .sk-global-header-spacer {
+          height: var(--skpd-header-offset, 130px);
+          width: 100%;
+          display: block;
+        }
+        @media (max-width: 768px) {
+          .sk-global-header-spacer {
+            height: var(--skpd-header-offset, 80px);
+          }
+        }
+      </style>
+      <script>
+        (function () {
+          function syncGlobalOffset() {
+            var header = document.querySelector('.sketch-header-unique');
+            if (header) {
+              var h = header.getBoundingClientRect().height;
+              document.body.style.setProperty('--skpd-header-offset', h + 'px');
+            }
+          }
+          document.addEventListener('DOMContentLoaded', syncGlobalOffset);
+          window.addEventListener('resize', syncGlobalOffset);
+          syncGlobalOffset(); // Run immediately too
+        })();
+      </script>
+    {%- endif -%}
+
     <script>
       // Inline header height and menu style calculations to prevent layout shift
       // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
