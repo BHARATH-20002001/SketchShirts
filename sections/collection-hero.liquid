@@ -1,0 +1,139 @@
+{%- liquid
+  assign metafield_bg = collection.metafields.custom.hero_background | default: page.metafields.custom.hero_background
+  assign bg_img = metafield_bg | default: section.settings.bg_image | default: collection.image
+  assign main_title = section.settings.title | default: collection.title | default: page.title | default: 'Collection Title'
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+  assign overlay_color = section.settings.overlay_color | color_modify: 'alpha', overlay_opacity
+-%}
+<section class="ch-hero-wrapper" style="{% if bg_img %}background-image: linear-gradient({{ overlay_color }}, {{ overlay_color }}), url('{{ bg_img | image_url: width: 2400 }}');{% else %}background-color: #222;{% endif %}">
+  <div class="ch-hero-container">
+    <div class="ch-hero-content">
+      <h1 class="ch-hero-title">{{ main_title }}</h1>
+      {%- if section.settings.btn_text != blank -%}
+        <a href="{{ section.settings.btn_link | default: collection.url | default: '#' }}" class="ch-hero-btn">{{ section.settings.btn_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+.ch-hero-wrapper {
+  width: 100%;
+  min-height: 100vh; /* Large impactful banner height */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  position: relative;
+}
+
+.ch-hero-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  text-align: center;
+  /* Push content down so it doesn't overlap completely with the absolute header */
+  padding-top: 100px; 
+}
+
+.ch-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ch-hero-title {
+  font-size: clamp(45px, 6vw, 90px);
+  line-height: 1.1;
+  font-family: 'Adamina', serif;
+  font-weight: 400;
+  margin: 0 0 35px 0;
+  color: #fff;
+  text-transform: none; /* Allows natural title casing, as seen in Rallye Cooper */
+}
+
+.ch-hero-btn {
+  display: inline-block;
+  padding: 14px 45px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.ch-hero-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@media(max-width: 768px) {
+  .ch-hero-wrapper { 
+    min-height: 60vh; 
+    background-position: center center; 
+  }
+  .ch-hero-container { 
+    padding-top: 80px; 
+  }
+  .ch-hero-title { 
+    margin-bottom: 25px; 
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Collection Hero",
+  "settings": [
+    { 
+      "type": "image_picker", 
+      "id": "bg_image", 
+      "label": "Background Image",
+      "info": "Leave blank to use the collection's featured image by default."
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 40
+    },
+    { 
+      "type": "text", 
+      "id": "title", 
+      "label": "Custom Title", 
+      "info": "Leave blank to dynamically use the Collection or Page title."
+    },
+    { 
+      "type": "text", 
+      "id": "btn_text", 
+      "label": "Button Text", 
+      "default": "SHOP NOW" 
+    },
+    { 
+      "type": "url", 
+      "id": "btn_link", 
+      "label": "Button Link",
+      "info": "Leave blank to dynamically link to the current collection or page."
+    }
+  ],
+  "presets": [{"name": "Collection Hero"}]
+}
+{% endschema %}
