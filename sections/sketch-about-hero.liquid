@@ -1,0 +1,330 @@
+{% comment %}
+  SKETCH SHIRTS - ABOUT US HERO SECTION (STAGGERED SCROLLING)
+  Left side scrolls down, Right side scrolls up, pausing on each slide.
+{% endcomment %}
+
+<section class="ska-hero-wrapper" id="ska-hero-{{ section.id }}" 
+         data-pause="{{ section.settings.slide_pause | times: 1000 }}" 
+         data-duration="{{ section.settings.slide_duration }}">
+  
+  <div class="ska-hero-background-wrapper">
+    {% comment %} === LEFT: Moves DOWN === {% endcomment %}
+    <div class="ska-track ska-track-left">
+      <div class="ska-slide-col ska-col-left" style="transition: transform {{ section.settings.slide_duration }}s cubic-bezier(0.25, 1, 0.5, 1);">
+        {% assign left_blocks = section.blocks | where: "type", "left_image" %}
+        {% for block in left_blocks %}
+          {% if block.settings.image != blank %}
+            <div class="ska-slide-item" style="background-image: url('{{ block.settings.image | image_url: width: 1000 }}');"></div>
+          {% endif %}
+        {% endfor %}
+        {% comment %} Duplicate for infinite loop {% endcomment %}
+        {% for block in left_blocks %}
+          {% if block.settings.image != blank %}
+            <div class="ska-slide-item clone" style="background-image: url('{{ block.settings.image | image_url: width: 1000 }}');"></div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% comment %} === RIGHT: Moves UP === {% endcomment %}
+    <div class="ska-track ska-track-right">
+      <div class="ska-slide-col ska-col-right" style="transition: transform {{ section.settings.slide_duration }}s cubic-bezier(0.25, 1, 0.5, 1);">
+        {% assign right_blocks = section.blocks | where: "type", "right_image" %}
+        {% for block in right_blocks %}
+          {% if block.settings.image != blank %}
+            <div class="ska-slide-item" style="background-image: url('{{ block.settings.image | image_url: width: 1000 }}');"></div>
+          {% endif %}
+        {% endfor %}
+        {% comment %} Duplicate for infinite loop {% endcomment %}
+        {% for block in right_blocks %}
+          {% if block.settings.image != blank %}
+            <div class="ska-slide-item clone" style="background-image: url('{{ block.settings.image | image_url: width: 1000 }}');"></div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="ska-hero-overlay-darken" style="background-color: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});"></div>
+  </div>
+  
+  <div class="ska-hero-content-container">
+    <div class="ska-hero-content">
+      {% if section.settings.heading != blank %}
+        <h1 class="ska-hero-heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="ska-hero-subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .ska-hero-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    background-color: #000;
+    overflow: hidden;
+  }
+
+  .ska-hero-background-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+  }
+
+  /* The two vertical tracks */
+  .ska-track {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ska-slide-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* initial state applied by JS */
+  }
+
+  .ska-slide-item {
+    width: 100%;
+    height: 100vh;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .ska-hero-overlay-darken {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .ska-hero-content-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+  }
+
+  .ska-hero-content {
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    animation: fadeIn 1.5s ease 0.5s forwards; 
+  }
+
+  .ska-hero-heading {
+    font-family: var(--font-heading--family, 'Times New Roman', serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+
+  .ska-hero-subheading {
+    font-family: var(--font-body--family, sans-serif);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    position: relative;
+    display: inline-block;
+  }
+
+  .ska-hero-subheading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 1px;
+    background-color: #fff;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.querySelector('#ska-hero-{{ section.id }}');
+  if (!section) return;
+
+  const rawPause = parseInt(section.getAttribute('data-pause')) || 2000;
+  const durationSec = parseFloat(section.getAttribute('data-duration')) || 0.7;
+  const durationMs = durationSec * 1000;
+  
+  // The total time of one full cycle (pause + animation time)
+  const intervalTime = rawPause + durationMs;
+
+  const colLeft = section.querySelector('.ska-col-left');
+  const itemsLeft = colLeft.querySelectorAll('.ska-slide-item');
+  const totalLeft = itemsLeft.length / 2;
+
+  const colRight = section.querySelector('.ska-col-right');
+  const itemsRight = colRight.querySelectorAll('.ska-slide-item');
+  const totalRight = itemsRight.length / 2;
+
+  let leftIndex = totalLeft; 
+  let rightIndex = 0;
+
+  // 1. Initial Position Setup
+  colLeft.style.transition = 'none';
+  colLeft.style.transform = `translateY(-${leftIndex * 100}vh)`;
+  
+  colRight.style.transition = 'none';
+  colRight.style.transform = `translateY(-${rightIndex * 100}vh)`;
+
+  // Force reflow so the 'none' transition is applied immediately
+  colLeft.offsetHeight; 
+  colRight.offsetHeight;
+
+  const transitionStyle = `transform ${durationSec}s cubic-bezier(0.25, 1, 0.5, 1)`;
+
+  setInterval(() => {
+    // 2. Animate to the next slide
+    if (totalLeft > 0) {
+      colLeft.style.transition = transitionStyle;
+      leftIndex--;
+      colLeft.style.transform = `translateY(-${leftIndex * 100}vh)`;
+    }
+
+    if (totalRight > 0) {
+      colRight.style.transition = transitionStyle;
+      rightIndex++;
+      colRight.style.transform = `translateY(-${rightIndex * 100}vh)`;
+    }
+
+    // 3. Check if we hit the boundary *after* the animation finishes
+    setTimeout(() => {
+      // LEFT Check (hit top, jump to bottom duplicate)
+      if (totalLeft > 0 && leftIndex === 0) {
+        colLeft.style.transition = 'none';
+        leftIndex = totalLeft;
+        colLeft.style.transform = `translateY(-${leftIndex * 100}vh)`;
+        colLeft.offsetHeight; // force reflow
+      }
+      
+      // RIGHT Check (hit bottom duplicate, jump to top)
+      if (totalRight > 0 && rightIndex === totalRight) {
+        colRight.style.transition = 'none';
+        rightIndex = 0;
+        colRight.style.transform = `translateY(-${rightIndex * 100}vh)`;
+        colRight.offsetHeight; // force reflow
+      }
+    }, durationMs); // Wait exactly the CSS animation duration before jumping
+
+  }, intervalTime);
+});
+</script>
+
+{% schema %}
+{
+  "name": "About Us Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Über Mich"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "SKETCH SHIRTS"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image Darkening Overlay",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "slide_pause",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Pause Before Slide",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slide_duration",
+      "min": 0.1,
+      "max": 3.0,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Sliding Speed",
+      "default": 0.7
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left_image",
+      "name": "Left Slide Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "right_image",
+      "name": "Right Slide Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us Hero",
+      "blocks": [
+        { "type": "left_image" },
+        { "type": "left_image" },
+        { "type": "left_image" },
+        { "type": "right_image" },
+        { "type": "right_image" },
+        { "type": "right_image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

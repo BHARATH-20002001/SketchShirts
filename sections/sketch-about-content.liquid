@@ -1,0 +1,321 @@
+{% comment %}
+  SKETCH SHIRTS - ABOUT US CONTENT SECTION
+  Static content blocks mapping to the provided About Us design.
+{% endcomment %}
+
+<section class="ska-content-wrapper" id="ska-content-{{ section.id }}">
+  <div class="ska-container">
+    
+    {% comment %} === BLOCK 1: Text Left, Image Right === {% endcomment %}
+    <div class="ska-block ska-block-1">
+      <div class="ska-text-col">
+        <h2 class="ska-heading">
+          WILLKOMMEN AUF MEINER<br>
+          SEITE. DARF ICH MICH KURZ<br>
+          VORSTELLEN?
+        </h2>
+        
+        <div class="ska-body-text">
+          <p>MEIN NAME IST HERRY. ICH STECKE HINTER SKETCH SHIRTS. MIT 12 JAHREN ERFAHRUNG IM PRINT- UND TEXTILVEREDLUNGSBEREICH HABE ICH MIR MEINEN TRAUM VON EIGENEN LABEL ERFÜLLT. WEIL ICH FINDE, DASS JEDER AUSDRUCK VON INDIVIDUALITÄT SEIN SOLLTE, HAB ICH MEIN EIGENES LABEL INS LEBEN GERUFEN.</p>
+          
+          <p>ANGEFANGEN HAT ALLES 2021 MIT DER IDEE, TEXTILIEN MIT EIGENEM, INDIVIDUELLEM DESIGN ZU BEDRUCKEN. WAS EIGENTLICH NUR EIN HOBBY WAR WURDE SCHON BALD ZUR LEIDENSCHAFT. HEUTE BEDRUCKE ICH MIT MEINEM EIGENEN KLEINEN MASCHINENPARK UNSERE BEKLEIDUNG SOWOHL FÜR MICH SELBST ALS AUCH FÜR MEINE KUNDEN – GANZ INDIVIDUELL NACH DEREN WÜNSCHEN. DABEI IST JEDES TEIL EIN UNIKAT UND WIRD MIT VIEL LIEBE ZUM DETAIL GEFERTIGT.</p>
+          
+          <p>DA ICH SELBST EIN GROSSER AUTOLIEBHABER UND TUNING-FAN BIN, FINDEN SICH VIELE MEINER DESIGNS IN DIESEM BEREICH WIEDER. MOTIVE, WIE Z.B. DER VW GOLF ODER AUDI RS MODELLE SIND BEI MIR KEINE SELTENHEIT UND AUCH MEHRTEILIGE MOTIVE ODER GROSSFLÄCHIGE DRUCKE SIND MÖGLICH. DABEI LEGE ICH GROSSEN WERT AUF HOCHWERTIGE MATERIALIEN UND LANGE LEBENSDAUER. DENN NUR SO KÖNNEN MEINE KUNDEN LANGE FREUDE AN IHREN SHIRTS, HOODIES UND CO. HABEN.</p>
+          
+          <p>ABER AUCH INDIVIDUELLE WÜNSCHE, WIE Z.B. EIN EIGENES LOGO ODER EIN PERSÖNLICHER SPRUCH, SETZE ICH GERNE FÜR MEINE KUNDEN UM.</p>
+          
+          <p class="ska-signature">VIEL SPASS BEIM STÖBERN IM SHOP UND BEIM TRAGEN EURER NEUEN LIEBLINGSSTÜCKE!</p>
+        </div>
+      </div>
+      
+      <div class="ska-image-col ska-img-right">
+        {% if section.settings.image_1 != blank %}
+          <img src="{{ section.settings.image_1 | image_url: width: 800 }}" alt="Founder Image" loading="lazy">
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    </div>
+
+    {% comment %} === BLOCK 2: Image Left (overlapping box), Text Right === {% endcomment %}
+    <div class="ska-block ska-block-2">
+      <div class="ska-image-col ska-img-left-overlap">
+        <div class="ska-overlap-bg"></div>
+        {% if section.settings.image_2 != blank %}
+          <img src="{{ section.settings.image_2 | image_url: width: 800 }}" alt="Secondary Image" loading="lazy" class="ska-overlap-img">
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg ska-overlap-img' }}
+        {% endif %}
+      </div>
+      
+      <div class="ska-text-col ska-text-right">
+        <h2 class="ska-heading ska-heading-small">
+          PERSPICIATIS UNDE<br>
+          OMNIS ISTE NATUS<br>
+          ERROR SIT VOLUPTATEM<br>
+          ACCUSANTIUM
+        </h2>
+        
+        <div class="ska-body-text ska-body-quote">
+          <p>BUT I MUST EXPLAIN TO YOU HOW ALL THIS MISTAKEN IDEA OF DENOUNCING PLEASURE AND PRAISING PAIN WAS BORN AND I WILL GIVE YOU A COMPLETE ACCOUNT OF THE SYSTEM, AND EXPOUND THE ACTUAL TEACHINGS OF THE GREAT EXPLORER OF THE TRUTH, THE MASTER-BUILDER OF HUMAN HAPPINESS. NO ONE REJECTS, DISLIKES, OR AVOIDS PLEASURE IT</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% comment %} === BLOCK 3 (Footer CTA): Full width dark banner === {% endcomment %}
+  <div class="ska-block-3-footer">
+    <div class="ska-footer-bg">
+      {% if section.settings.image_footer != blank %}
+        <img src="{{ section.settings.image_footer | image_url: width: 1600 }}" alt="Footer Banner" loading="lazy">
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+      <div class="ska-footer-overlay"></div>
+    </div>
+    <div class="ska-footer-content">
+      <h2 class="ska-footer-heading">ET HARUM QUIDEM RERUM FACILIS<br>EST ET EXPEDITA DISTINCTIO.</h2>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* Base Container */
+  .ska-content-wrapper {
+    width: 100%;
+    background-color: var(--color-background, #fff);
+    color: var(--color-foreground, #000);
+    padding-top: 80px;
+    font-family: var(--font-body--family, sans-serif);
+    overflow: hidden; /* prevents overlap box from breaking x-scroll */
+  }
+
+  .ska-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 0px;
+  }
+
+  /* Typography */
+  .ska-heading {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .ska-heading-small {
+    font-size: 20px;
+  }
+
+  .ska-body-text p {
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #444;
+    text-transform: uppercase; /* The mockup has fully upper-case body text */
+    letter-spacing: 0.05em;
+  }
+
+  .ska-signature {
+    font-weight: 700;
+    margin-top: 30px;
+  }
+
+  /* Blocks Grid System */
+  .ska-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 100px;
+    gap: 60px;
+  }
+
+  .ska-text-col {
+    flex: 1 1 400px;
+  }
+
+  .ska-image-col {
+    flex: 1 1 500px;
+  }
+
+  .ska-image-col img, 
+  .ska-image-col svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Block 1 Adjustments */
+  .ska-block-1 {
+    align-items: stretch;
+  }
+  .ska-block-1 .ska-text-col {
+    padding-right: 40px;
+    padding-top: 20px;
+  }
+  .ska-block-1 .ska-image-col img {
+    height: 100%;
+    min-height: 600px;
+  }
+
+  /* Block 2 Adjustments & Overlaps */
+  .ska-block-2 {
+    position: relative;
+    padding-top: 40px;
+  }
+  
+  .ska-text-right {
+    padding-left: 40px;
+  }
+  
+  .ska-img-left-overlap {
+    position: relative;
+    padding-right: 60px; /* space for the grey box to peek out */
+    padding-bottom: 60px;
+  }
+
+  .ska-overlap-bg {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    bottom: 0;
+    left: 40px;
+    background-color: #f4f4f4;
+    z-index: 0;
+  }
+
+  .ska-overlap-img {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  }
+
+  .ska-body-quote p {
+    font-style: italic;
+    font-size: 10px;
+    opacity: 0.8;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+  }
+
+  /* Block 3 Footer Banner */
+  .ska-block-3-footer {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .ska-footer-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ska-footer-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .ska-footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6); /* darkens the image so text pops */
+  }
+
+  .ska-footer-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .ska-footer-heading {
+    color: #fff;
+    font-family: var(--font-heading--family, serif);
+    font-size: 28px;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 990px) {
+    .ska-block {
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .ska-block-1 .ska-text-col,
+    .ska-text-right {
+      padding: 0;
+    }
+
+    /* Reverse order on mobile for Block 2 so image comes before text */
+    .ska-block-2 {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .ska-block-1 .ska-image-col img {
+      min-height: auto;
+    }
+
+    .ska-img-left-overlap {
+      padding: 0 20px 20px 0;
+    }
+
+    .ska-overlap-bg {
+      top: 20px;
+      left: 20px;
+    }
+    
+    .ska-container {
+      padding: 0 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "About Us Content",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Founder Image (Block 1)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Secondary Image (Block 2)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_footer",
+      "label": "Footer Banner Image (Block 3)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us Content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "sketch_about_hero": {
+      "type": "sketch-about-hero",
+      "blocks": {
+        "left_1": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "left_2": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "left_3": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "right_1": {
+          "type": "right_image",
+          "settings": {}
+        },
+        "right_2": {
+          "type": "right_image",
+          "settings": {}
+        },
+        "right_3": {
+          "type": "right_image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "left_1",
+        "left_2",
+        "left_3",
+        "right_1",
+        "right_2",
+        "right_3"
+      ],
+      "settings": {
+        "heading": "Über Mich",
+        "subheading": "SKETCH SHIRTS"
+      }
+    },
+    "sketch_about_content": {
+      "type": "sketch-about-content",
+      "settings": {}
+    }
+  },
+  "order": [
+    "sketch_about_hero",
+    "sketch_about_content"
+  ]
+}
