@@ -150,10 +150,21 @@
         "btn_text": "SHOP NOW",
         "btn_link": ""
       }
+    },
+    "collections_product_grid_cAE7TT": {
+      "type": "collections-product-grid",
+      "name": "Collection Product Grid",
+      "settings": {
+        "products_per_row_desktop": 4,
+        "products_per_row_mobile": "2",
+        "products_per_page": 16,
+        "price_color": "#d93838"
+      }
     }
   },
   "order": [
     "main",
-    "collection_hero_VMgef6"
+    "collection_hero_VMgef6",
+    "collections_product_grid_cAE7TT"
   ]
 }
