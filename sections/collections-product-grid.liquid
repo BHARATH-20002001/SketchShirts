@@ -1,0 +1,268 @@
+{%- liquid
+  assign products_per_page = section.settings.products_per_page
+  assign columns_desktop = section.settings.products_per_row_desktop
+  assign columns_mobile = section.settings.products_per_row_mobile
+-%}
+
+<div id="shop-now" class="sk-collection-grid-wrapper section section--page-width" data-section-id="{{ section.id }}">
+  <div class="sk-collection-container">
+
+    {% if collection %}
+      
+      {% if collection.title != blank %}
+        <h2 class="sk-collection-heading">{{ collection.title }}</h2>
+      {% endif %}
+
+      {% paginate collection.products by products_per_page %}
+
+        {% if collection.products.size > 0 %}
+
+          <ul class="sk-product-grid" style="--grid-desktop: {{ columns_desktop }}; --grid-mobile: {{ columns_mobile }};">
+            
+            {% for product in collection.products %}
+              <li class="sk-grid-item">
+                <a href="{{ product.url }}" class="sk-grid-card">
+
+                  <div class="sk-grid-image-wrapper">
+                    {% if product.featured_image %}
+                      <img src="{{ product.featured_image | image_url: width: 600 }}"
+                           alt="{{ product.title | escape }}"
+                           loading="lazy"
+                           class="sk-grid-image">
+                    {% else %}
+                       {{ 'product-1' | placeholder_svg_tag: 'sk-grid-image placeholder-svg' }}
+                    {% endif %}
+                  </div>
+
+                  <div class="sk-grid-info">
+                    <h3 class="sk-grid-title">{{ product.title }}</h3>
+                    <div class="sk-grid-price" style="color: {{ section.settings.price_color }};">
+                      {{ product.price | money }}
+                    </div>
+                  </div>
+
+                </a>
+              </li>
+            {% endfor %}
+
+          </ul>
+
+        {% else %}
+          <p class="text-center" style="margin: 60px 0;">No products found in this collection.</p>
+        {% endif %}
+
+        {%- comment -%} Styled Pagination {%- endcomment -%}
+        {% if paginate.pages > 1 %}
+          <div class="sk-pagination-wrapper">
+            <nav class="sk-pagination">
+
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="sk-pagination-btn">Previous</a>
+              {% endif %}
+
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  <a href="{{ part.url }}" class="sk-pagination-number">{{ part.title }}</a>
+                {% else %}
+                  <span class="sk-pagination-current">{{ part.title }}</span>
+                {% endif %}
+              {% endfor %}
+
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="sk-pagination-btn">Next</a>
+              {% endif %}
+
+            </nav>
+          </div>
+        {% endif %}
+
+      {% endpaginate %}
+
+    {% else %}
+      <p class="text-center" style="margin: 60px 0;">No collection found.</p>
+    {% endif %}
+
+  </div>
+</div>
+
+
+<style>
+/* Scoped Container Styles */
+.sk-collection-grid-wrapper {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 40px 0 80px 0;
+}
+
+.sk-collection-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 0px;
+}
+
+.sk-collection-heading {
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Dynamic Grid Layout */
+.sk-product-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-mobile), 1fr);
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+@media(min-width: 768px) {
+  .sk-product-grid {
+    grid-template-columns: repeat(var(--grid-desktop), 1fr);
+    gap: 40px;
+  }
+}
+
+/* Product Card Styling (Matches your Slider) */
+.sk-grid-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sk-grid-image-wrapper {
+  background-color: #f0f0f0; /* The light grey box */
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.sk-grid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply; /* Blends white image backgrounds into the grey */
+  transition: transform 0.4s ease;
+}
+
+.placeholder-svg {
+  width: 80%;
+  height: auto;
+  opacity: 0.5;
+}
+
+.sk-grid-card:hover .sk-grid-image {
+  transform: scale(1.05);
+}
+
+.sk-grid-info {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.sk-grid-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  letter-spacing: 0.5px;
+  color: #000000;
+}
+
+.sk-grid-price {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Pagination Styling */
+.sk-pagination-wrapper {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.sk-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sk-pagination-number,
+.sk-pagination-btn {
+  padding: 10px 16px;
+  border: 1px solid #e0e0e0;
+  text-decoration: none;
+  color: #000;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.sk-pagination-number:hover,
+.sk-pagination-btn:hover {
+  border-color: #000;
+}
+
+.sk-pagination-current {
+  padding: 10px 16px;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .sk-collection-container { padding: 0 0px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Collection Product Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Products per row (Desktop)",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "products_per_row_mobile",
+      "label": "Products per row (Mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "label": "Products per page",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#d93838",
+      "info": "Changes the color of the product price."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Product Grid"
+    }
+  ]
+}
+{% endschema %}
