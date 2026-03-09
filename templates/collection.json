@@ -139,9 +139,21 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
+    },
+    "collection_hero_9QYdKW": {
+      "type": "collection-hero",
+      "name": "Collection Hero",
+      "settings": {
+        "overlay_color": "#000000",
+        "overlay_opacity": 60,
+        "title": "",
+        "btn_text": "SHOP NOW",
+        "btn_link": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "collection_hero_9QYdKW"
   ]
 }
