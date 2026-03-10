@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "main-page",
@@ -47,6 +48,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -54,9 +56,67 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "sketch_about_hero_6Ckzpy": {
+      "type": "sketch-about-hero",
+      "blocks": {
+        "left_image_y7XbBY": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "left_image_rdPpr3": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "left_image_wiQ8JJ": {
+          "type": "left_image",
+          "settings": {}
+        },
+        "right_image_iG3TTT": {
+          "type": "right_image",
+          "settings": {}
+        },
+        "right_image_4bawFW": {
+          "type": "right_image",
+          "settings": {}
+        },
+        "right_image_rBi8UR": {
+          "type": "right_image",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "left_image_y7XbBY",
+        "left_image_rdPpr3",
+        "left_image_wiQ8JJ",
+        "right_image_iG3TTT",
+        "right_image_4bawFW",
+        "right_image_rBi8UR"
+      ],
+      "name": "About Us Hero",
+      "settings": {
+        "heading": "Über Mich",
+        "subheading": "SKETCH SHIRTS",
+        "overlay_opacity": 30,
+        "slide_pause": 2,
+        "slide_duration": 0.7
+      }
+    },
+    "sketch_about_content_h44P4K": {
+      "type": "sketch-about-content",
+      "name": "About Us Content",
+      "settings": {
+        "block1_heading": "<p>WILLKOMMEN AUF MEINER<br/>SEITE. DARF ICH MICH KURZ<br/>VORSTELLEN?</p>",
+        "block1_text": "<p>MEIN NAME IST HERRY. ICH STECKE HINTER SKETCH SHIRTS. MIT 12 JAHREN ERFAHRUNG IM PRINT- UND TEXTILVEREDLUNGSBEREICH HABE ICH MIR MEINEN TRAUM VON EIGENEN LABEL ERFÜLLT.</p>",
+        "block2_heading": "<p>PERSPICIATIS UNDE<br/>OMNIS ISTE NATUS<br/>ERROR SIT VOLUPTATEM<br/>ACCUSANTIUM</p>",
+        "block2_text": "<p>BUT I MUST EXPLAIN TO YOU HOW ALL THIS MISTAKEN IDEA OF DENOUNCING PLEASURE AND PRAISING PAIN WAS BORN AND I WILL GIVE YOU A COMPLETE ACCOUNT OF THE SYSTEM.</p>",
+        "block3_heading": "<p>ET HARUM QUIDEM RERUM FACILIS<br/>EST ET EXPEDITA DISTINCTIO.</p>"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "sketch_about_hero_6Ckzpy",
+    "sketch_about_content_h44P4K"
   ]
 }
