@@ -62,27 +62,39 @@
       "blocks": {
         "left_image_y7XbBY": {
           "type": "left_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/aboutbg-1.png"
+          }
         },
         "left_image_rdPpr3": {
           "type": "left_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/aboutbg-2.png"
+          }
         },
         "left_image_wiQ8JJ": {
           "type": "left_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/perspecia.png"
+          }
         },
         "right_image_iG3TTT": {
           "type": "right_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/perspecia.png"
+          }
         },
         "right_image_4bawFW": {
           "type": "right_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/aboutbg-2.png"
+          }
         },
         "right_image_rBi8UR": {
           "type": "right_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/aboutbg-1.png"
+          }
         }
       },
       "block_order": [
@@ -108,9 +120,13 @@
       "settings": {
         "block1_heading": "<p>WILLKOMMEN AUF MEINER<br/>SEITE. DARF ICH MICH KURZ<br/>VORSTELLEN?</p>",
         "block1_text": "<p>MEIN NAME IST HERRY. ICH STECKE HINTER SKETCH SHIRTS. MIT 12 JAHREN ERFAHRUNG IM PRINT- UND TEXTILVEREDLUNGSBEREICH HABE ICH MIR MEINEN TRAUM VON EIGENEN LABEL ERFÜLLT.</p>",
+        "image_1": "shopify://shop_images/willkommen.png",
         "block2_heading": "<p>PERSPICIATIS UNDE<br/>OMNIS ISTE NATUS<br/>ERROR SIT VOLUPTATEM<br/>ACCUSANTIUM</p>",
         "block2_text": "<p>BUT I MUST EXPLAIN TO YOU HOW ALL THIS MISTAKEN IDEA OF DENOUNCING PLEASURE AND PRAISING PAIN WAS BORN AND I WILL GIVE YOU A COMPLETE ACCOUNT OF THE SYSTEM.</p>",
-        "block3_heading": "<p>ET HARUM QUIDEM RERUM FACILIS<br/>EST ET EXPEDITA DISTINCTIO.</p>"
+        "image_2": "shopify://shop_images/perspecia.png",
+        "image_2_overlay": "shopify://shop_images/voluptot.png",
+        "block3_heading": "<p>ET HARUM QUIDEM RERUM FACILIS<br/>EST ET EXPEDITA DISTINCTIO.</p>",
+        "image_footer": "shopify://shop_images/aboutus-bottom-bannerbg.png"
       }
     }
   },
