@@ -429,17 +429,6 @@
       ],
       "name": "Sketch Promo Columns",
       "settings": {}
-    },
-    "sketch_product_grid_YEfAPQ": {
-      "type": "sketch-product-grid",
-      "name": "Sketch Product Grid",
-      "settings": {
-        "title": "Featured Products",
-        "products_to_show": 4,
-        "price_color": "#d93838",
-        "button_text": "",
-        "button_url": ""
-      }
     }
   },
   "order": [
@@ -453,7 +442,6 @@
     "sketch_testimonials_QahcC8",
     "sketch_product_slider_6zazzk",
     "sketch_image_banner_QdnX63",
-    "sketch_promo_columns_UxBdr9",
-    "sketch_product_grid_YEfAPQ"
+    "sketch_promo_columns_UxBdr9"
   ]
 }

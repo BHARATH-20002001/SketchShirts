@@ -10,54 +10,6 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {
-    "sketch_footer_MCf6DW": {
-      "type": "sketch-footer",
-      "blocks": {
-        "newsletter_PGqagD": {
-          "type": "newsletter",
-          "settings": {
-            "heading": "STAY UP TO DATE",
-            "text": "<p>Promotions, new products and special offers.<br>Straight to your inbox.</p>"
-          }
-        },
-        "menu_XDF3NX": {
-          "type": "menu",
-          "settings": {
-            "heading": "FOOTER MENU",
-            "menu": ""
-          }
-        },
-        "menu_eRDn6H": {
-          "type": "menu",
-          "settings": {
-            "heading": "FOOTER MENU",
-            "menu": ""
-          }
-        },
-        "menu_9DNGwy": {
-          "type": "menu",
-          "settings": {
-            "heading": "FOOTER MENU",
-            "menu": ""
-          }
-        }
-      },
-      "block_order": [
-        "newsletter_PGqagD",
-        "menu_XDF3NX",
-        "menu_eRDn6H",
-        "menu_9DNGwy"
-      ],
-      "name": "Sketch Footer",
-      "settings": {
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "logo_height": 60
-      }
-    }
-  },
-  "order": [
-    "sketch_footer_MCf6DW"
-  ]
+  "sections": {},
+  "order": []
 }

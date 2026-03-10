@@ -10,21 +10,11 @@
     <div class="ska-block ska-block-1">
       <div class="ska-text-col">
         <h2 class="ska-heading">
-          WILLKOMMEN AUF MEINER<br>
-          SEITE. DARF ICH MICH KURZ<br>
-          VORSTELLEN?
+          {{ section.settings.block1_heading }}
         </h2>
         
         <div class="ska-body-text">
-          <p>MEIN NAME IST HERRY. ICH STECKE HINTER SKETCH SHIRTS. MIT 12 JAHREN ERFAHRUNG IM PRINT- UND TEXTILVEREDLUNGSBEREICH HABE ICH MIR MEINEN TRAUM VON EIGENEN LABEL ERFÜLLT. WEIL ICH FINDE, DASS JEDER AUSDRUCK VON INDIVIDUALITÄT SEIN SOLLTE, HAB ICH MEIN EIGENES LABEL INS LEBEN GERUFEN.</p>
-          
-          <p>ANGEFANGEN HAT ALLES 2021 MIT DER IDEE, TEXTILIEN MIT EIGENEM, INDIVIDUELLEM DESIGN ZU BEDRUCKEN. WAS EIGENTLICH NUR EIN HOBBY WAR WURDE SCHON BALD ZUR LEIDENSCHAFT. HEUTE BEDRUCKE ICH MIT MEINEM EIGENEN KLEINEN MASCHINENPARK UNSERE BEKLEIDUNG SOWOHL FÜR MICH SELBST ALS AUCH FÜR MEINE KUNDEN – GANZ INDIVIDUELL NACH DEREN WÜNSCHEN. DABEI IST JEDES TEIL EIN UNIKAT UND WIRD MIT VIEL LIEBE ZUM DETAIL GEFERTIGT.</p>
-          
-          <p>DA ICH SELBST EIN GROSSER AUTOLIEBHABER UND TUNING-FAN BIN, FINDEN SICH VIELE MEINER DESIGNS IN DIESEM BEREICH WIEDER. MOTIVE, WIE Z.B. DER VW GOLF ODER AUDI RS MODELLE SIND BEI MIR KEINE SELTENHEIT UND AUCH MEHRTEILIGE MOTIVE ODER GROSSFLÄCHIGE DRUCKE SIND MÖGLICH. DABEI LEGE ICH GROSSEN WERT AUF HOCHWERTIGE MATERIALIEN UND LANGE LEBENSDAUER. DENN NUR SO KÖNNEN MEINE KUNDEN LANGE FREUDE AN IHREN SHIRTS, HOODIES UND CO. HABEN.</p>
-          
-          <p>ABER AUCH INDIVIDUELLE WÜNSCHE, WIE Z.B. EIN EIGENES LOGO ODER EIN PERSÖNLICHER SPRUCH, SETZE ICH GERNE FÜR MEINE KUNDEN UM.</p>
-          
-          <p class="ska-signature">VIEL SPASS BEIM STÖBERN IM SHOP UND BEIM TRAGEN EURER NEUEN LIEBLINGSSTÜCKE!</p>
+          {{ section.settings.block1_text }}
         </div>
       </div>
       
@@ -46,18 +36,19 @@
         {% else %}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg ska-overlap-img' }}
         {% endif %}
+        
+        {% if section.settings.image_2_overlay != blank %}
+          <img src="{{ section.settings.image_2_overlay | image_url: width: 400 }}" alt="Floating Image" loading="lazy" class="ska-overlap-float">
+        {% endif %}
       </div>
       
       <div class="ska-text-col ska-text-right">
         <h2 class="ska-heading ska-heading-small">
-          PERSPICIATIS UNDE<br>
-          OMNIS ISTE NATUS<br>
-          ERROR SIT VOLUPTATEM<br>
-          ACCUSANTIUM
+          {{ section.settings.block2_heading }}
         </h2>
         
         <div class="ska-body-text ska-body-quote">
-          <p>BUT I MUST EXPLAIN TO YOU HOW ALL THIS MISTAKEN IDEA OF DENOUNCING PLEASURE AND PRAISING PAIN WAS BORN AND I WILL GIVE YOU A COMPLETE ACCOUNT OF THE SYSTEM, AND EXPOUND THE ACTUAL TEACHINGS OF THE GREAT EXPLORER OF THE TRUTH, THE MASTER-BUILDER OF HUMAN HAPPINESS. NO ONE REJECTS, DISLIKES, OR AVOIDS PLEASURE IT</p>
+          {{ section.settings.block2_text }}
         </div>
       </div>
     </div>
@@ -75,7 +66,7 @@
       <div class="ska-footer-overlay"></div>
     </div>
     <div class="ska-footer-content">
-      <h2 class="ska-footer-heading">ET HARUM QUIDEM RERUM FACILIS<br>EST ET EXPEDITA DISTINCTIO.</h2>
+      <h2 class="ska-footer-heading">{{ section.settings.block3_heading }}</h2>
     </div>
   </div>
 
@@ -128,19 +119,18 @@
 
   /* Blocks Grid System */
   .ska-block {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     align-items: center;
     margin-bottom: 100px;
     gap: 60px;
   }
 
   .ska-text-col {
-    flex: 1 1 400px;
+    width: 100%;
   }
 
   .ska-image-col {
-    flex: 1 1 500px;
+    width: 100%;
   }
 
   .ska-image-col img, 
@@ -154,6 +144,7 @@
   /* Block 1 Adjustments */
   .ska-block-1 {
     align-items: stretch;
+    grid-template-columns: 1fr 1.1fr;
   }
   .ska-block-1 .ska-text-col {
     padding-right: 40px;
@@ -168,6 +159,7 @@
   .ska-block-2 {
     position: relative;
     padding-top: 40px;
+    grid-template-columns: 1.1fr 1fr;
   }
   
   .ska-text-right {
@@ -194,6 +186,17 @@
     position: relative;
     z-index: 1;
     box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  }
+
+  .ska-overlap-float {
+    position: absolute;
+    bottom: 10px; /* Inside the 60px bottom padding space */
+    right: 10px;  /* Inside the 60px right padding space */
+    width: 60%;
+    max-width: 350px;
+    z-index: 2;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border: 10px solid #fff;
   }
 
   .ska-body-quote p {
@@ -257,7 +260,7 @@
   /* Responsive Design */
   @media (max-width: 990px) {
     .ska-block {
-      flex-direction: column;
+      grid-template-columns: 1fr !important;
       gap: 40px;
       margin-bottom: 60px;
     }
@@ -268,9 +271,11 @@
     }
 
     /* Reverse order on mobile for Block 2 so image comes before text */
-    .ska-block-2 {
-      display: flex;
-      flex-direction: column-reverse;
+    .ska-block-2 .ska-image-col {
+      grid-row: 1;
+    }
+    .ska-block-2 .ska-text-col {
+      grid-row: 2;
     }
 
     .ska-block-1 .ska-image-col img {
@@ -297,14 +302,61 @@
   "name": "About Us Content",
   "settings": [
     {
+      "type": "header",
+      "content": "Block 1 Settings"
+    },
+    {
+      "type": "richtext",
+      "id": "block1_heading",
+      "label": "Block 1 Heading",
+      "default": "<p>WILLKOMMEN AUF MEINER<br/>SEITE. DARF ICH MICH KURZ<br/>VORSTELLEN?</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "block1_text",
+      "label": "Block 1 Body Text",
+      "default": "<p>MEIN NAME IST HERRY. ICH STECKE HINTER SKETCH SHIRTS. MIT 12 JAHREN ERFAHRUNG IM PRINT- UND TEXTILVEREDLUNGSBEREICH HABE ICH MIR MEINEN TRAUM VON EIGENEN LABEL ERFÜLLT.</p>"
+    },
+    {
       "type": "image_picker",
       "id": "image_1",
       "label": "Founder Image (Block 1)"
     },
     {
+      "type": "header",
+      "content": "Block 2 Settings"
+    },
+    {
+      "type": "richtext",
+      "id": "block2_heading",
+      "label": "Block 2 Heading",
+      "default": "<p>PERSPICIATIS UNDE<br/>OMNIS ISTE NATUS<br/>ERROR SIT VOLUPTATEM<br/>ACCUSANTIUM</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "block2_text",
+      "label": "Block 2 Body Text",
+      "default": "<p>BUT I MUST EXPLAIN TO YOU HOW ALL THIS MISTAKEN IDEA OF DENOUNCING PLEASURE AND PRAISING PAIN WAS BORN AND I WILL GIVE YOU A COMPLETE ACCOUNT OF THE SYSTEM.</p>"
+    },
+    {
       "type": "image_picker",
       "id": "image_2",
       "label": "Secondary Image (Block 2)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2_overlay",
+      "label": "Small Floating Image (Block 2)"
+    },
+    {
+      "type": "header",
+      "content": "Footer Settings"
+    },
+    {
+      "type": "richtext",
+      "id": "block3_heading",
+      "label": "Footer Banner Heading",
+      "default": "<p>ET HARUM QUIDEM RERUM FACILIS<br/>EST ET EXPEDITA DISTINCTIO.</p>"
     },
     {
       "type": "image_picker",
