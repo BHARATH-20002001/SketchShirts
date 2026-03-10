@@ -12,6 +12,7 @@
     "sketch_contact": {
       "type": "sketch-contact",
       "settings": {
+        "banner_image": "shopify://shop_images/contact-us-banner-img.png",
         "overlay_opacity": 30,
         "banner_heading": "KONTAKT",
         "banner_subheading": "ABSENDEN",
