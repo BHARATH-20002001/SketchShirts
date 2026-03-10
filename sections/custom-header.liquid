@@ -4,7 +4,7 @@
   conflicting with your existing theme styles.
 {% endcomment %}
 
-<section class="sketch-header-unique {% if template.name != 'index' %}sk-solid-bg{% endif %}" data-section-id="{{ section.id }}">
+<section class="sketch-header-unique {% if template.name != 'index' and template.suffix != 'contact' %}sk-solid-bg{% endif %}" data-section-id="{{ section.id }}">
   
   {%- if section.settings.show_announcement -%}
     <div class="sk-announcement-bar" style="background-color: {{ section.settings.announcement_bg_color }}; color: {{ section.settings.announcement_text_color }};">
